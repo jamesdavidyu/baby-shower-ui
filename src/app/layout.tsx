@@ -15,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Simba Gender Reveal Party!",
-  description: "E-vite to Simba's gender reveal party!",
+  title: "Simba Baby Shower!",
+  description: "E-vite to Simba's baby shower!",
 };
 
 export default function RootLayout({

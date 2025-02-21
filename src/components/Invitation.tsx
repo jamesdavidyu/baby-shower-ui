@@ -34,15 +34,24 @@ export const Invitation = () => {
 
   return session.status === "authenticated" ? (
     <div className="flex flex-col space-y-2">
-      <Card className="w-80 sm:w-[28rem] bg-[#f6e6d4]">
-        <img alt="Invitation" src={process.env.NEXT_PUBLIC_AUTH_IMG} />
+      <Card className="w-80 sm:w-[28rem] bg-[#ffc521] border-[#5c1d1e]">
+        <a
+          href="https://www.amazon.com/baby-reg/james-yu-april-2025-baldwinsville/1ZAL4EE9D4LMN"
+          target="_blank"
+        >
+          <img
+            alt="Invitation"
+            src={process.env.NEXT_PUBLIC_AUTH_IMG}
+            className="rounded-t-lg hover:cursor-pointer"
+          />
+        </a>
         <RSVPForm rsvps={rsvps?.rsvp} guests={guests?.guests} />
       </Card>
       <div className="flex justify-between">
-        <p className="text-xs text-[#bad5c6]">
+        <p className="text-xs text-[#5c1d1e]">
           <a
             href="https://github.com/jamesdavidyu/gender_reveal_ui"
-            className="text-xs text-[#bad5c6] hover:underline"
+            className="text-xs text-[#5c1d1e] hover:underline"
             target="_blank"
           >
             developed
@@ -58,7 +67,7 @@ export const Invitation = () => {
           />
           <a
             href="https://github.com/jamesdavidyu/gender_reveal_service"
-            className="text-xs text-[#bad5c6] hover:underline"
+            className="text-xs text-[#5c1d1e] hover:underline"
             target="_blank"
           >
             planorban.
@@ -66,61 +75,62 @@ export const Invitation = () => {
         </p>
         <div className="space-x-1">
           {session.data.user.name === process.env.NEXT_PUBLIC_ADMIN1 ||
-          session.data.user.name === process.env.NEXT_PUBLIC_ADMIN2 ? (
+          session.data.user.name === process.env.NEXT_PUBLIC_ADMIN2 ||
+          session.data.user.name === process.env.NEXT_PUBLIC_ADMIN3 ? (
             <Dialog>
               <DialogTrigger asChild>
                 <Button>Dashboard</Button>
               </DialogTrigger>
-              <DialogContent className="bg-[#f6e6d4] text-[#954f36] overflow-y-auto h-96 text-xs sm:w-fit">
+              <DialogContent className="bg-[#ffc521] text-[#5c1d1e] overflow-y-auto h-96 text-xs sm:w-fit">
                 <DialogHeader>
                   <DialogTitle>Dashboard</DialogTitle>
-                  <DialogDescription className="text-[#954f36]">
+                  <DialogDescription className="text-[#5c1d1e]">
                     Invitees who have RSVPd.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid grid-cols-3">
-                  <div className="border-r border-[#954f36]">
-                    <p className="flex justify-center border-b border-[#954f36]">
+                  <div className="border-r border-[#5c1d1e]">
+                    <p className="flex justify-center border-b border-[#5c1d1e]">
                       Name
                     </p>
                     {dashboards.dashboard?.map((dashboard: Dashboard) => (
                       <Popover key={dashboard.id}>
-                        <PopoverTrigger className="border-b border-[#954f36] p-2 flex flex-col w-full">
+                        <PopoverTrigger className="border-b border-[#5c1d1e] p-2 flex flex-col text-left w-full">
                           {dashboard.name.length > 14
                             ? dashboard.name.substring(0, 14) + "..."
                             : dashboard.name}
                         </PopoverTrigger>
-                        <PopoverContent className="bg-[#f6e6d4] text-[#954f36] text-xs w-fit">
+                        <PopoverContent className="bg-[#ffc521] text-[#5c1d1e] text-xs w-fit">
                           {dashboard.name}
                         </PopoverContent>
                       </Popover>
                     ))}
                   </div>
-                  <div className="border-r border-[#954f36]">
-                    <p className="flex justify-center border-b border-[#954f36]">
+                  <div className="border-r border-[#5c1d1e]">
+                    <p className="flex justify-center border-b border-[#5c1d1e]">
                       RSVP
                     </p>
                     {dashboards.dashboard?.map((dashboard: Dashboard) => (
                       <p
                         key={dashboard.id}
-                        className="border-b border-[#954f36] p-2"
+                        className="border-b border-[#5c1d1e] p-2"
                       >
                         {dashboard.rsvp}
                       </p>
                     ))}
                   </div>
                   <div>
-                    <p className="flex justify-center border-b border-[#954f36]">
+                    <p className="flex justify-center border-b border-[#5c1d1e]">
                       Guests
                     </p>
                     {dashboards.dashboard?.map((dashboard: Dashboard) => (
                       <Popover key={dashboard.id}>
-                        <PopoverTrigger className="border-b border-[#954f36] p-2 flex flex-col w-full">
+                        <PopoverTrigger className="border-b border-[#5c1d1e] p-2 flex flex-col text-left w-full">
                           {dashboard.guests.length > 15
                             ? dashboard.guests.substring(0, 15) + "..."
                             : dashboard.guests}
                         </PopoverTrigger>
-                        <PopoverContent className="bg-[#f6e6d4] text-[#954f36] text-xs w-fit">
+                        <PopoverContent className="bg-[#ffc521] text-[#5c1d1e] text-xs w-fit">
                           {dashboard.guests}
                         </PopoverContent>
                       </Popover>
@@ -142,17 +152,18 @@ export const Invitation = () => {
     </div>
   ) : (
     <div className="flex flex-col space-y-2">
-      <Card className="w-80 sm:w-[28rem] bg-[#f6e6d4]">
+      <Card className="w-80 sm:w-[28rem] bg-[#ffc521] border-[#5c1d1e]">
         <img
           alt="Invitation"
-          src="https://utfs.io/f/AR95GDbqfmiL67vj7DaxG5jmiqyXaIwh1Y2ZnsMOocBEUFkp"
+          src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLbNrE2boe4opQX5SsU3IR8hdjw7CE6xVWYnfk"
+          className="rounded-t-lg"
         />
         <LoginForm />
       </Card>
-      <p className="text-xs text-[#bad5c6]">
+      <p className="text-xs text-[#5c1d1e]">
         <a
           href="https://github.com/jamesdavidyu/gender_reveal_ui"
-          className="text-xs text-[#bad5c6] hover:underline"
+          className="text-xs text-[#5c1d1e] hover:underline"
           target="_blank"
         >
           developed
@@ -160,7 +171,7 @@ export const Invitation = () => {
         by{" "}
         <a
           href="https://github.com/jamesdavidyu/gender_reveal_service"
-          className="text-xs text-[#bad5c6] hover:underline"
+          className="text-xs text-[#5c1d1e] hover:underline"
           target="_blank"
         >
           planorban.

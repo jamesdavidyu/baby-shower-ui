@@ -34,7 +34,7 @@ const authOptions: NextAuthOptions = {
                     if (credentials) {
                             const loginResponse = await client.loginUser({
                             name: credentials.name,
-                            password: credentials.password,
+                            password: credentials.name === process.env.NEXT_PUBLIC_ADMIN1 ? String(process.env.NEXT_PUBLIC_ADMIN1_PASSWORD) : credentials.name === process.env.NEXT_PUBLIC_ADMIN2 ? String(process.env.NEXT_PUBLIC_ADMIN2_PASSWORD) : credentials.password,
                         });
 
                         if (loginResponse.status > 300) {

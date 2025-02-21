@@ -109,27 +109,27 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                   >
                     <SelectTrigger
                       title="Change RSVP"
-                      className="flex justify-center font-semibold text-[#954f36] bg-[#fef6ed] hover:bg-[#f6e6d4]"
+                      className="flex justify-center font-semibold text-[#5c1d1e] hover:bg-[#a43335]"
                     >
                       Your RSVP is: {newRsvp === "" ? rsvps?.rsvp : newRsvp}
                     </SelectTrigger>
-                    <SelectContent className="w-72 sm:w-[25.9rem] bg-[#fef6ed] border-[#954f36] rounded-md">
+                    <SelectContent className="w-72 sm:w-[25.9rem] bg-[#ffc521] border rounded-md">
                       <SelectItem
-                        className="flex justify-center text-[#954f36] focus:text-[#954f36] font-semibold focus:bg-[#f6e6d4]"
+                        className="flex justify-center text-[#5c1d1e] focus:text-[#5c1d1e] font-semibold focus:bg-[#a43335]"
                         value="Yes"
                         disabled={rsvps?.rsvp === "Yes" ? true : false}
                       >
                         Yes
                       </SelectItem>
                       <SelectItem
-                        className="flex justify-center text-[#954f36] focus:text-[#954f36] font-semibold focus:bg-[#f6e6d4]"
+                        className="flex justify-center text-[#5c1d1e] focus:text-[#5c1d1e] font-semibold focus:bg-[#a43335]"
                         value="Virtual"
                         disabled={rsvps?.rsvp === "Virtual" ? true : false}
                       >
                         Yes, virtually
                       </SelectItem>
                       <SelectItem
-                        className="flex justify-center text-[#954f36] focus:text-[#954f36] font-semibold focus:bg-[#f6e6d4]"
+                        className="flex justify-center text-[#5c1d1e] focus:text-[#5c1d1e] font-semibold focus:bg-[#a43335]"
                         value="No"
                         disabled={rsvps?.rsvp === "No" ? true : false}
                       >
@@ -143,10 +143,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
             )}
           />
           {newRsvp === "" ? null : (
-            <Button
-              type="submit"
-              className="w-full bg-[#bad5c6] hover:bg-[#bed0d8]"
-            >
+            <Button type="submit" className="w-full">
               Submit New RSVP
             </Button>
           )}
@@ -175,7 +172,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                             ? "(Optional) Please write the name of your guests."
                             : "Your guests: " + guests?.guests
                         }
-                        className="text-[#954f36] bg-[#fef6ed] italic"
+                        className="text-[#5c1d1e] italic"
                         {...field}
                       />
                     </FormControl>
@@ -203,13 +200,13 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
             <Button className="w-full">Zoom Link</Button>
           </a>
           <div className="flex flex-col w-full items-center">
-            <p className="flex font-bold text-sm w-fit text-[#954f36]">
+            <p className="flex font-bold text-sm w-fit text-[#5c1d1e]">
               Save the Link!&nbsp;
             </p>
             <a
               href="https://cayuga-cc-edu.zoom.us/j/9302098328"
               target="_blank"
-              className="flex text-xs sm:text-sm hover:underline w-fit text-[#954f36]"
+              className="flex text-xs sm:text-sm hover:underline w-fit text-[#5c1d1e]"
             >
               https://cayuga-cc-edu.zoom.us/j/9302098328
             </a>
@@ -240,7 +237,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                         <RadioGroupItem value="Yes" id="r1" />
                         <Label
                           htmlFor="r1"
-                          className="text-[#954f36] font-bold"
+                          className="text-[#5c1d1e] font-bold"
                         >
                           Yes
                         </Label>
@@ -249,7 +246,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                         <RadioGroupItem value="Virtual" id="r2" />
                         <Label
                           htmlFor="r2"
-                          className="text-[#954f36] font-bold"
+                          className="text-[#5c1d1e] font-bold"
                         >
                           Yes, virtually
                         </Label>
@@ -258,7 +255,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                         <RadioGroupItem value="No" id="r3" />
                         <Label
                           htmlFor="r3"
-                          className="text-[#954f36] font-bold"
+                          className="text-[#5c1d1e] font-bold"
                         >
                           No
                         </Label>

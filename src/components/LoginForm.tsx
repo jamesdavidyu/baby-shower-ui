@@ -8,7 +8,14 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { loginFormSchema, LoginValidationSchemaType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { ColorRing } from "react-loader-spinner";
@@ -21,7 +28,7 @@ export const LoginForm = () => {
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
       name: "",
-      password: "",
+      password: process.env.NEXT_PUBLIC_PASSWORD,
     },
   });
 
@@ -60,10 +67,13 @@ export const LoginForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
+                <FormLabel className="flex justify-center text-[#5c1d1e]">
+                  Please enter your name below to submit your RSVP.
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Your First and Last Name"
-                    className="text-[#954f36] bg-[#fef6ed]"
+                    className="text-[#5c1d1e]"
                     {...field}
                   />
                 </FormControl>
@@ -71,13 +81,14 @@ export const LoginForm = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="relative">
+          <div className="hidden">
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    {/* <div className="relative">
                     <Input
                       placeholder="Password"
                       type={visiblePassword ? "text" : "password"}
@@ -95,15 +106,16 @@ export const LoginForm = () => {
                         onClick={() => setVisiblePassword(true)}
                       />
                     )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  </div> */}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <Button
             type="submit"
-            className="w-full bg-[#bed0d8] hover:bg-[#bad5c6] text-[#fef6ed]"
+            className="w-full bg-[#5c1d1e] text-[#ffc521]"
             onClick={() => {
               console.log("test click");
               setClick(true);
