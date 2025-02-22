@@ -17,6 +17,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { useState } from "react";
 
 interface Dashboard {
   id: string;
@@ -32,25 +33,37 @@ export const Invitation = () => {
   const { guests } = useGuests();
   const { dashboards } = useDashboard();
 
+  const [hover, setHover] = useState(false);
+
   return session.status === "authenticated" ? (
     <div className="flex flex-col space-y-2">
       <Card className="w-80 sm:w-[28rem] bg-[#ffc521] border-[#5c1d1e]">
         <a
           href="https://www.amazon.com/baby-reg/james-yu-april-2025-baldwinsville/1ZAL4EE9D4LMN"
           target="_blank"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
         >
-          <img
-            alt="Invitation"
-            src={process.env.NEXT_PUBLIC_AUTH_IMG}
-            className="rounded-t-lg hover:cursor-pointer"
-          />
+          {hover ? (
+            <img
+              alt="Invitation"
+              src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLpTCXTwPmOWcZ1i7n6tSUlzxTPIRw4BQCDd5f"
+              className="rounded-t-lg hover:cursor-pointer"
+            />
+          ) : (
+            <img
+              alt="Invitation"
+              src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLLBXWrnY7EmPedUXZIz23wynVoYKMqrhuk5Fa"
+              className="rounded-t-lg hover:cursor-pointer"
+            />
+          )}
         </a>
         <RSVPForm rsvps={rsvps?.rsvp} guests={guests?.guests} />
       </Card>
       <div className="flex justify-between">
         <p className="text-xs text-[#5c1d1e]">
           <a
-            href="https://github.com/jamesdavidyu/gender_reveal_ui"
+            href="https://github.com/jamesdavidyu/baby-shower-ui"
             className="text-xs text-[#5c1d1e] hover:underline"
             target="_blank"
           >
@@ -66,7 +79,7 @@ export const Invitation = () => {
             }
           />
           <a
-            href="https://github.com/jamesdavidyu/gender_reveal_service"
+            href="https://github.com/jamesdavidyu/grs"
             className="text-xs text-[#5c1d1e] hover:underline"
             target="_blank"
           >
@@ -162,7 +175,7 @@ export const Invitation = () => {
       </Card>
       <p className="text-xs text-[#5c1d1e]">
         <a
-          href="https://github.com/jamesdavidyu/gender_reveal_ui"
+          href="https://github.com/jamesdavidyu/baby-shower-ui"
           className="text-xs text-[#5c1d1e] hover:underline"
           target="_blank"
         >
@@ -170,7 +183,7 @@ export const Invitation = () => {
         </a>{" "}
         by{" "}
         <a
-          href="https://github.com/jamesdavidyu/gender_reveal_service"
+          href="https://github.com/jamesdavidyu/grs"
           className="text-xs text-[#5c1d1e] hover:underline"
           target="_blank"
         >

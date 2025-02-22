@@ -13,6 +13,11 @@ interface GuestPayload {
     guests: string;
 }
 
+// interface NewInviteePayload {
+//     name: string;
+//     rsvp: string;
+// }
+
 export const getGrpApiHttpClient = (accessToken?: string) => {
     const instance: AxiosInstance = axios.create({
         baseURL: process.env.GRP_API_URL,
@@ -33,6 +38,14 @@ class GrpApiHttpClient {
         const response = await this.client
             .post("/api/v1/auth/login", payload)
             .catch((e) => {
+                this.client
+                    .post("/api/v1/newinvitee", {
+                        name: payload.name,
+                        rsvp: "Yes",
+                    })
+                    .catch((e) => {
+                        throw new Error(e);
+                    });
                 throw new Error(e);
             });
 
@@ -78,6 +91,16 @@ class GrpApiHttpClient {
         
         return response;
     }
+
+    // public async createNewInvitee(payload: NewInviteePayload) {
+    //     const response = await this.client
+    //         .post("/api/v1/newinvitee", payload)
+    //         .catch((e) => {
+    //             throw new Error(e);
+    //         });
+        
+    //     return response;
+    // }
 
     public async getGuests() {
         const response = await this.client

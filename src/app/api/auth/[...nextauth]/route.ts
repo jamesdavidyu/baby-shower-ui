@@ -3,6 +3,7 @@
 import { getGrpApiHttpClient } from "@/lib/grp-api-http-client";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { NextRequest, NextResponse } from "next/server";
 
 interface Credentials {
     id: string,
@@ -36,6 +37,21 @@ const authOptions: NextAuthOptions = {
                             name: credentials.name,
                             password: credentials.name === process.env.NEXT_PUBLIC_ADMIN1 ? String(process.env.NEXT_PUBLIC_ADMIN1_PASSWORD) : credentials.name === process.env.NEXT_PUBLIC_ADMIN2 ? String(process.env.NEXT_PUBLIC_ADMIN2_PASSWORD) : credentials.password,
                         });
+
+                        // if (loginResponse.status === 404) {
+                        //     try {
+                        //         const newInviteePayload = {
+                        //             name: credentials.name,
+                        //             rsvp: "Yes",
+                        //         };
+
+                        //         await client.createNewInvitee(newInviteePayload);
+
+                        //         return null;
+                        //     } catch (e: any) {
+                        //         return null;
+                        //     }
+                        // }
 
                         if (loginResponse.status > 300) {
                             return null;

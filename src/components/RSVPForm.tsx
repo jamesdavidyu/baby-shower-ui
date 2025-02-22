@@ -93,6 +93,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
     rsvps?.rsvp === "Virtual" ||
     rsvps?.rsvp === "No" ? (
     <div className="p-4 space-y-2">
+      {/* TODO: button for baby registry */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handlePutRsvp)} className="space-y-2">
           <FormField

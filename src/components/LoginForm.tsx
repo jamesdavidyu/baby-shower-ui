@@ -47,7 +47,7 @@ export const LoginForm = () => {
         });
 
         if (loginResponse && loginResponse?.status > 300) {
-          toast.error("Incorrect login info.");
+          toast.error("RSVP logged.");
         } else {
           toast("Hello!");
         }
@@ -76,6 +76,7 @@ export const LoginForm = () => {
                     className="text-[#5c1d1e]"
                     {...field}
                   />
+                  {/* TODO: need to add something for ppl not on guest list already */}
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -117,7 +118,6 @@ export const LoginForm = () => {
             type="submit"
             className="w-full bg-[#5c1d1e] text-[#ffc521]"
             onClick={() => {
-              console.log("test click");
               setClick(true);
             }}
           >
