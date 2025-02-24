@@ -20,7 +20,12 @@ import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { ColorRing } from "react-loader-spinner";
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  rsvp: boolean;
+  setRsvp: (rsvp: boolean) => void;
+}
+
+export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [click, setClick] = useState(false);
 
@@ -47,7 +52,8 @@ export const LoginForm = () => {
         });
 
         if (loginResponse && loginResponse?.status > 300) {
-          toast.error("RSVP logged.");
+          toast("RSVP logged!");
+          setRsvp(true);
         } else {
           toast("Hello!");
         }
@@ -60,36 +66,46 @@ export const LoginForm = () => {
 
   return (
     <div className="p-4">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex justify-center text-[#5c1d1e]">
-                  Please enter your name below to submit your RSVP.
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Your First and Last Name"
-                    className="text-[#5c1d1e]"
-                    {...field}
-                  />
-                  {/* TODO: need to add something for ppl not on guest list already */}
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="hidden">
+      {rsvp ? (
+        <a
+          href="https://www.amazon.com/baby-reg/james-yu-april-2025-baldwinsville/1ZAL4EE9D4LMN"
+          target="_blank"
+        >
+          <Button className="w-full mb-2">
+            RSVP logged! Click here for registry.
+          </Button>
+        </a>
+      ) : (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-4">
             <FormField
               control={form.control}
-              name="password"
+              name="name"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel className="flex justify-center text-[#5c1d1e]">
+                    Please enter your name below to submit your RSVP.
+                  </FormLabel>
                   <FormControl>
-                    {/* <div className="relative">
+                    <Input
+                      placeholder="Your First and Last Name"
+                      className="text-[#5c1d1e]"
+                      {...field}
+                    />
+                    {/* TODO: need to add something for ppl not on guest list already */}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="hidden">
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      {/* <div className="relative">
                     <Input
                       placeholder="Password"
                       type={visiblePassword ? "text" : "password"}
@@ -108,23 +124,24 @@ export const LoginForm = () => {
                       />
                     )}
                   </div> */}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <Button
-            type="submit"
-            className="w-full bg-[#5c1d1e] text-[#ffc521]"
-            onClick={() => {
-              setClick(true);
-            }}
-          >
-            {click ? <ColorRing /> : <p>Enter</p>}
-          </Button>
-        </form>
-      </Form>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button
+              type="submit"
+              className="w-full bg-[#5c1d1e] text-[#ffc521]"
+              onClick={() => {
+                setClick(true);
+              }}
+            >
+              {click ? <ColorRing /> : <p>Enter</p>}
+            </Button>
+          </form>
+        </Form>
+      )}
     </div>
   );
 };

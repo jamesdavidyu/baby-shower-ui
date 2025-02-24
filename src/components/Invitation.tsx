@@ -34,6 +34,7 @@ export const Invitation = () => {
   const { dashboards } = useDashboard();
 
   const [hover, setHover] = useState(false);
+  const [rsvp, setRsvp] = useState(false);
 
   return session.status === "authenticated" ? (
     <div className="flex flex-col space-y-2">
@@ -47,13 +48,13 @@ export const Invitation = () => {
           {hover ? (
             <img
               alt="Invitation"
-              src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLpTCXTwPmOWcZ1i7n6tSUlzxTPIRw4BQCDd5f"
+              src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiL4IviYscxKmFT3ejWCMIvzf6PXwiGDZpNh1Ak"
               className="rounded-t-lg hover:cursor-pointer"
             />
           ) : (
             <img
               alt="Invitation"
-              src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLLBXWrnY7EmPedUXZIz23wynVoYKMqrhuk5Fa"
+              src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLEX803C5zG9qQVaUmxS7eFRX1uwhZO6iWpclM"
               className="rounded-t-lg hover:cursor-pointer"
             />
           )}
@@ -166,12 +167,35 @@ export const Invitation = () => {
   ) : (
     <div className="flex flex-col space-y-2">
       <Card className="w-80 sm:w-[28rem] bg-[#ffc521] border-[#5c1d1e]">
-        <img
-          alt="Invitation"
-          src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLbNrE2boe4opQX5SsU3IR8hdjw7CE6xVWYnfk"
-          className="rounded-t-lg"
-        />
-        <LoginForm />
+        {rsvp ? (
+          <a
+            href="https://www.amazon.com/baby-reg/james-yu-april-2025-baldwinsville/1ZAL4EE9D4LMN"
+            target="_blank"
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
+            {hover ? (
+              <img
+                alt="Invitation"
+                src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiL4IviYscxKmFT3ejWCMIvzf6PXwiGDZpNh1Ak"
+                className="rounded-t-lg hover:cursor-pointer"
+              />
+            ) : (
+              <img
+                alt="Invitation"
+                src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLEX803C5zG9qQVaUmxS7eFRX1uwhZO6iWpclM"
+                className="rounded-t-lg hover:cursor-pointer"
+              />
+            )}
+          </a>
+        ) : (
+          <img
+            alt="Invitation"
+            src="https://m2my1rq4tt.ufs.sh/f/AR95GDbqfmiLbNrE2boe4opQX5SsU3IR8hdjw7CE6xVWYnfk"
+            className="rounded-t-lg"
+          />
+        )}
+        <LoginForm rsvp={rsvp} setRsvp={setRsvp} />
       </Card>
       <p className="text-xs text-[#5c1d1e]">
         <a

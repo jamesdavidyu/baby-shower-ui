@@ -93,7 +93,6 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
     rsvps?.rsvp === "Virtual" ||
     rsvps?.rsvp === "No" ? (
     <div className="p-4 space-y-2">
-      {/* TODO: button for baby registry */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handlePutRsvp)} className="space-y-2">
           <FormField
@@ -121,13 +120,6 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                         disabled={rsvps?.rsvp === "Yes" ? true : false}
                       >
                         Yes
-                      </SelectItem>
-                      <SelectItem
-                        className="flex justify-center text-[#5c1d1e] focus:text-[#5c1d1e] font-semibold focus:bg-[#a43335]"
-                        value="Virtual"
-                        disabled={rsvps?.rsvp === "Virtual" ? true : false}
-                      >
-                        Yes, virtually
                       </SelectItem>
                       <SelectItem
                         className="flex justify-center text-[#5c1d1e] focus:text-[#5c1d1e] font-semibold focus:bg-[#a43335]"
@@ -230,7 +222,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                 <FormItem>
                   <FormControl>
                     <RadioGroup
-                      className="grid grid-cols-3"
+                      className="grid grid-cols-2"
                       defaultValue={field.value}
                       onValueChange={field.onChange}
                     >
@@ -241,15 +233,6 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                           className="text-[#5c1d1e] font-bold"
                         >
                           Yes
-                        </Label>
-                      </div>
-                      <div className="flex justify-center items-center space-x-2">
-                        <RadioGroupItem value="Virtual" id="r2" />
-                        <Label
-                          htmlFor="r2"
-                          className="text-[#5c1d1e] font-bold"
-                        >
-                          Yes, virtually
                         </Label>
                       </div>
                       <div className="flex justify-center items-center space-x-2">
