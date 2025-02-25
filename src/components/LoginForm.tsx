@@ -114,7 +114,7 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
             href="https://www.amazon.com/baby-reg/james-yu-april-2025-baldwinsville/1ZAL4EE9D4LMN"
             target="_blank"
           >
-            <Button className="w-full">
+            <Button className="w-full text-wrap">
               Guests submitted. Feel free to check out our registry!
             </Button>
           </a>
