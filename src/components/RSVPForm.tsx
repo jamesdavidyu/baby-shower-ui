@@ -44,6 +44,9 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
 
   const guestsForm = useForm<GuestsFormSchemaValidationSchemaType>({
     resolver: zodResolver(guestsFormSchema),
+    defaultValues: {
+      guests: "",
+    },
   });
 
   const handleCreateRsvp = useCallback(async (formValues: RsvpFormValues) => {
@@ -162,7 +165,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
                       <Textarea
                         placeholder={
                           guests?.guests === ""
-                            ? "(Optional) Please write the name of your guests."
+                            ? "(Optional) Please write the name(s) of your guests."
                             : "Your guests: " + guests?.guests
                         }
                         className="text-[#5c1d1e] italic"

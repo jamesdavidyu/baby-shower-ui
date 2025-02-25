@@ -20,3 +20,10 @@ export const guestsFormSchema = z.object({
 });
 
 export type GuestsFormSchemaValidationSchemaType = z.infer<typeof guestsFormSchema>;
+
+export const newGuestsFormSchema = z.object({
+    name: z.string(),
+    guests: z.string().min(3, { message: "Please input valid names for your guests." }),
+});
+
+export type NewGuestsFormSchemaValidationSchemaType = z.infer<typeof newGuestsFormSchema>;

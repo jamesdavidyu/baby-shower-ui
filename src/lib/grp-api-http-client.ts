@@ -13,6 +13,11 @@ interface GuestPayload {
     guests: string;
 }
 
+interface NewGuestsPayload {
+    name: string;
+    guests: string;
+}
+
 // interface NewInviteePayload {
 //     name: string;
 //     rsvp: string;
@@ -92,15 +97,15 @@ class GrpApiHttpClient {
         return response;
     }
 
-    // public async createNewInvitee(payload: NewInviteePayload) {
-    //     const response = await this.client
-    //         .post("/api/v1/newinvitee", payload)
-    //         .catch((e) => {
-    //             throw new Error(e);
-    //         });
+    public async createNewGuests(payload: NewGuestsPayload) {
+        const response = await this.client
+            .post("/api/v1/newguests", payload)
+            .catch((e) => {
+                throw new Error(e);
+            });
         
-    //     return response;
-    // }
+        return response;
+    }
 
     public async getGuests() {
         const response = await this.client

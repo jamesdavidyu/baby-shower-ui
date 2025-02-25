@@ -6,7 +6,12 @@ import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { loginFormSchema, LoginValidationSchemaType } from "@/types/types";
+import {
+  loginFormSchema,
+  LoginValidationSchemaType,
+  newGuestsFormSchema,
+  NewGuestsFormSchemaValidationSchemaType,
+} from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -19,21 +24,38 @@ import {
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
 import { ColorRing } from "react-loader-spinner";
+import { Textarea } from "./ui/textarea";
+import axios from "axios";
 
 interface LoginFormProps {
   rsvp: boolean;
   setRsvp: (rsvp: boolean) => void;
 }
 
+interface NewGuestsFormValues {
+  name: string;
+  guests: string;
+}
+
 export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [click, setClick] = useState(false);
+  const [newInvitee, setNewInvitee] = useState<string>("");
+  const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<LoginValidationSchemaType>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
       name: "",
       password: process.env.NEXT_PUBLIC_PASSWORD,
+    },
+  });
+
+  const guestsForm = useForm<NewGuestsFormSchemaValidationSchemaType>({
+    resolver: zodResolver(newGuestsFormSchema),
+    defaultValues: {
+      name: "",
+      guests: "",
     },
   });
 
@@ -54,6 +76,7 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
         if (loginResponse && loginResponse?.status > 300) {
           toast("RSVP logged!");
           setRsvp(true);
+          setNewInvitee(formValues.name);
         } else {
           toast("Hello!");
         }
@@ -61,23 +84,73 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
         toast.error("Incorrect login info.");
       }
     },
-    []
+    [setRsvp]
+  );
+
+  const handleCreateNewGuests = useCallback(
+    async (guestFormValues: NewGuestsFormValues) => {
+      try {
+        await axios.post("/api/newguests", {
+          name: newInvitee,
+          guests: guestFormValues.guests,
+        });
+
+        setSubmitted(!submitted);
+
+        toast.info("Successfuly submitted!");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (e: any) {
+        toast.error("Not submitted.");
+      }
+    },
+    [newInvitee, submitted]
   );
 
   return (
     <div className="p-4">
       {rsvp ? (
-        <a
-          href="https://www.amazon.com/baby-reg/james-yu-april-2025-baldwinsville/1ZAL4EE9D4LMN"
-          target="_blank"
-        >
-          <Button className="w-full mb-2">
-            RSVP logged! Click here for registry.
-          </Button>
-        </a>
+        submitted ? (
+          <a
+            href="https://www.amazon.com/baby-reg/james-yu-april-2025-baldwinsville/1ZAL4EE9D4LMN"
+            target="_blank"
+          >
+            <Button className="w-full">
+              Guests submitted. Feel free to check out our registry!
+            </Button>
+          </a>
+        ) : (
+          <div>
+            <Form {...guestsForm}>
+              <form
+                onSubmit={guestsForm.handleSubmit(handleCreateNewGuests)}
+                className="space-y-2"
+              >
+                <FormField
+                  control={guestsForm.control}
+                  name="guests"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Textarea
+                          placeholder="RSVP logged! (Optional) Please write the name(s) of your guests."
+                          className="text-[#5c1d1e] italic"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full">
+                  Submit
+                </Button>
+              </form>
+            </Form>
+          </div>
+        )
       ) : (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-2">
             <FormField
               control={form.control}
               name="name"
