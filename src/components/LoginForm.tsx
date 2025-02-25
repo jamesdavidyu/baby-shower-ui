@@ -81,7 +81,7 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
           toast("Hello!");
         }
       } catch (e) {
-        toast.error("Incorrect login info.");
+        toast.error("Please try again.");
       }
     },
     [setRsvp]
@@ -100,7 +100,7 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
         toast.info("Successfuly submitted!");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (e: any) {
-        toast.error("Not submitted.");
+        toast.error("Please try again.");
       }
     },
     [newInvitee, submitted]

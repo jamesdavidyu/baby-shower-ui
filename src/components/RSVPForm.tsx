@@ -55,7 +55,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
       window.location.reload();
       toast.info("Successfully submitted!");
     } catch (e: any) {
-      toast.error("Not submitted.");
+      toast.error("Please try again.");
     }
   }, []);
 
@@ -65,7 +65,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
       window.location.reload();
       toast.info("Successfully submitted");
     } catch (e: any) {
-      toast.error("Not submitted");
+      toast.error("Please try again.");
     }
   }, []);
 
@@ -76,7 +76,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
         window.location.reload();
         toast.info("Successfully submitted!");
       } catch (e: any) {
-        toast.error("Not submitted.");
+        toast.error("Please try again.");
       }
     },
     []
@@ -88,7 +88,7 @@ export const RSVPForm = ({ rsvps, guests }: RsvpFormProps) => {
       window.location.reload();
       toast.info("Successfully submitted!");
     } catch (e: any) {
-      toast.error("Not submitted.");
+      toast.error("Please try again.");
     }
   }, []);
 
