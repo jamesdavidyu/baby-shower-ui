@@ -2,7 +2,6 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
@@ -26,6 +25,8 @@ import { signIn } from "next-auth/react";
 import { ColorRing } from "react-loader-spinner";
 import { Textarea } from "./ui/textarea";
 import axios from "axios";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Label } from "./ui/label";
 
 interface LoginFormProps {
   rsvp: boolean;
@@ -34,6 +35,7 @@ interface LoginFormProps {
 
 interface NewGuestsFormValues {
   name: string;
+  rsvp: string;
   guests: string;
 }
 
@@ -42,6 +44,7 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
   const [click, setClick] = useState(false);
   const [newInvitee, setNewInvitee] = useState<string>("");
   const [submitted, setSubmitted] = useState(false);
+  const [guests, setGuests] = useState(false);
 
   const form = useForm<LoginValidationSchemaType>({
     resolver: zodResolver(loginFormSchema),
@@ -55,7 +58,8 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
     resolver: zodResolver(newGuestsFormSchema),
     defaultValues: {
       name: "",
-      guests: "",
+      rsvp: "Yes",
+      guests: "(Optional) Please write the name(s) of your guests.",
     },
   });
 
@@ -74,7 +78,7 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
         });
 
         if (loginResponse && loginResponse?.status > 300) {
-          toast("RSVP logged!");
+          toast("Hello!");
           setRsvp(true);
           setNewInvitee(formValues.name);
         } else {
@@ -92,6 +96,7 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
       try {
         await axios.post("/api/newguests", {
           name: newInvitee,
+          rsvp: guestFormValues.rsvp,
           guests: guestFormValues.guests,
         });
 
@@ -115,7 +120,7 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
             target="_blank"
           >
             <Button className="w-full text-wrap">
-              Guests submitted. Feel free to check out our registry!
+              Submitted. Feel free to check out our registry!
             </Button>
           </a>
         ) : (
@@ -125,22 +130,69 @@ export const LoginForm = ({ rsvp, setRsvp }: LoginFormProps) => {
                 onSubmit={guestsForm.handleSubmit(handleCreateNewGuests)}
                 className="space-y-2"
               >
-                <FormField
-                  control={guestsForm.control}
-                  name="guests"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Textarea
-                          placeholder="RSVP logged! (Optional) Please write the name(s) of your guests."
-                          className="text-[#5c1d1e] italic"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="flex justify-center">
+                  <FormField
+                    control={guestsForm.control}
+                    name="rsvp"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <RadioGroup
+                            className="grid grid-cols-2"
+                            defaultValue={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <div className="flex justify-center items-center space-x-2">
+                              <RadioGroupItem value="Yes" id="r1" />
+                              <Label
+                                htmlFor="r1"
+                                className="text-[#5c1d1e] font-bold"
+                              >
+                                Yes
+                              </Label>
+                            </div>
+                            <div className="flex justify-center items-center space-x-2">
+                              <RadioGroupItem value="No" id="r3" />
+                              <Label
+                                htmlFor="r3"
+                                className="text-[#5c1d1e] font-bold"
+                              >
+                                No
+                              </Label>
+                            </div>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                {guests ? (
+                  <FormField
+                    control={guestsForm.control}
+                    name="guests"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Textarea
+                            placeholder="(Optional) Please write the name(s) of your guests."
+                            className="text-[#5c1d1e] italic"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ) : (
+                  <Button
+                    type="button"
+                    className="w-full text-wrap"
+                    onClick={() => setGuests(!guests)}
+                  >
+                    Click here if you plan on bringing any guests.
+                  </Button>
+                )}
                 <Button type="submit" className="w-full">
                   Submit
                 </Button>
