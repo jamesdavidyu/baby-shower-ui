@@ -111,7 +111,7 @@ export const Invitation = () => {
                       <Popover key={dashboard.id}>
                         <PopoverTrigger className="border-b border-[#5c1d1e] p-2 flex flex-col text-left w-full">
                           {dashboard.name.length > 14
-                            ? dashboard.name.substring(0, 14) + "..."
+                            ? dashboard.name.substring(0, 10) + "..."
                             : dashboard.name}
                         </PopoverTrigger>
                         <PopoverContent className="bg-[#ffc521] text-[#5c1d1e] text-xs w-fit">
@@ -141,7 +141,7 @@ export const Invitation = () => {
                       <Popover key={dashboard.id}>
                         <PopoverTrigger className="border-b border-[#5c1d1e] p-2 flex flex-col text-left w-full">
                           {dashboard.guests.length > 15
-                            ? dashboard.guests.substring(0, 15) + "..."
+                            ? dashboard.guests.substring(0, 10) + "..."
                             : dashboard.guests}
                         </PopoverTrigger>
                         <PopoverContent className="bg-[#ffc521] text-[#5c1d1e] text-xs w-fit">
